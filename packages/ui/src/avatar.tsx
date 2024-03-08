@@ -10,7 +10,7 @@ export function Avatar({
     image?: string | null | undefined;
   };
   className?: string;
-}) {
+}): JSX.Element {
   if (!user) {
     return (
       <div
@@ -24,25 +24,25 @@ export function Avatar({
 
   return (
     <img
-      alt={`Avatar for ${user?.name || user?.email}`}
-      referrerPolicy="no-referrer"
-      src={
-        user?.image ||
-        `https://api.dicebear.com/7.x/micah/svg?seed=${user?.email}`
-      }
+      alt={`Avatar for ${user.name || user.email}`}
       className={cn("h-10 w-10 rounded-full border border-gray-300", className)}
       draggable={false}
+      referrerPolicy="no-referrer"
+      src={
+        user.image ||
+        `https://api.dicebear.com/7.x/micah/svg?seed=${user.email}`
+      }
     />
   );
 }
 
-export function TokenAvatar({ id }: { id: string }) {
+export function TokenAvatar({ id }: { id: string }): JSX.Element {
   return (
     <img
-      src={`https://api.dicebear.com/7.x/shapes/svg?seed=${id}`}
       alt="avatar"
       className="h-10 w-10 rounded-full"
       draggable={false}
+      src={`https://api.dicebear.com/7.x/shapes/svg?seed=${id}`}
     />
   );
 }

@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 
 export default function useMediaQuery() {
@@ -12,7 +10,7 @@ export default function useMediaQuery() {
   } | null>(null);
 
   useEffect(() => {
-    const checkDevice = () => {
+    const checkDevice = (): void => {
       if (window.matchMedia("(max-width: 640px)").matches) {
         setDevice("mobile");
       } else if (

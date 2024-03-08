@@ -1,8 +1,6 @@
-"use client";
-
 import { useEffect, useState } from "react";
 
-export default function useCurrentAnchor() {
+export default function useCurrentAnchor(): string | undefined {
   const [currentAnchor, setCurrentAnchor] = useState<string | null>(null);
 
   useEffect(() => {
@@ -55,8 +53,8 @@ export default function useCurrentAnchor() {
 
     const siblings = new Map();
 
-    const anchors = mdxContainer?.querySelectorAll("[data-mdx-heading]");
-    anchors.forEach((anchor) => observer.observe(anchor));
+    const anchors = mdxContainer.querySelectorAll("[data-mdx-heading]");
+    anchors.forEach((anchor) => { observer.observe(anchor); });
 
     return () => {
       observer.disconnect();

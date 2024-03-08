@@ -1,4 +1,36 @@
-export const PLANS = [
+export interface Plan {
+  name: string;
+  tagline?: string;
+  price: {
+    monthly: number | null;
+    yearly: number | null;
+    ids?: string[];
+  };
+  limits: {
+    links: number | null;
+    clicks: number | null;
+    domains: number | null;
+    tags?: number | null;
+    users?: number | null;
+  };
+  colors: {
+    bg: string;
+    text: string;
+  };
+  cta: {
+    text: string;
+    shortText?: string;
+    href: string;
+    color: string;
+  };
+  featureTitle: string;
+  features: {
+    text: string;
+    footnote?: string | { title: string; cta: string; href: string };
+  }[]
+};
+
+export const PLANS: Plan[] = [
   {
     name: "Free",
     tagline: "For hobby & side projects",
@@ -48,6 +80,7 @@ export const PLANS = [
   {
     name: "Pro",
     tagline: "For startups & small businesses",
+    link: "https://dub.co/help/article/pro-plan",
     price: {
       monthly: 24,
       yearly: 19,
@@ -106,6 +139,7 @@ export const PLANS = [
   {
     name: "Business",
     tagline: "For larger teams with increased usage",
+    link: "https://dub.co/help/article/business-plan",
     price: {
       monthly: 49,
       yearly: 39,
@@ -161,6 +195,9 @@ export const PLANS = [
   },
   {
     name: "Enterprise",
+    tagline:
+      "Custom tailored plans for large enterprises. Whether you're running a SMS campaign with millions of short links or a large marketing campaign with billions of clicks, we've got you covered.",
+    link: "https://dub.co/enterprise",
     price: {
       monthly: null,
       yearly: null,

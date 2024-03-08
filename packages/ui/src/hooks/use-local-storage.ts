@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 
 export default function useLocalStorage<T>(
@@ -16,7 +14,7 @@ export default function useLocalStorage<T>(
     }
   }, [key]);
 
-  const setValue = (value: T) => {
+  const setValue = (value: T): void => {
     // Save state
     setStoredValue(value);
     // Save to localStorage

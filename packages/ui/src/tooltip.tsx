@@ -4,9 +4,13 @@ import { nFormatter, timeAgo } from "@dub/utils";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import { HelpCircle } from "lucide-react";
 import Link from "next/link";
-import { ReactNode, useState } from "react";
+import { useState, type ReactNode } from "react";
 
-export function TooltipProvider({ children }: { children: ReactNode }) {
+export function TooltipProvider({
+  children,
+}: {
+  children: ReactNode;
+}): JSX.Element {
   return (
     <TooltipPrimitive.Provider delayDuration={100}>
       {children}
@@ -22,27 +26,27 @@ export function Tooltip({
   children: ReactNode;
   content: ReactNode | string;
   side?: "top" | "bottom" | "left" | "right";
-}) {
+}): JSX.Element {
   const [open, setOpen] = useState(false);
 
   return (
-    <TooltipPrimitive.Root open={open} onOpenChange={setOpen}>
+    <TooltipPrimitive.Root onOpenChange={setOpen} open={open}>
       <TooltipPrimitive.Trigger
         asChild
-        onClick={() => {
-          setOpen(true);
-        }}
         onBlur={() => {
           setOpen(false);
+        }}
+        onClick={() => {
+          setOpen(true);
         }}
       >
         {children}
       </TooltipPrimitive.Trigger>
       <TooltipPrimitive.Portal>
         <TooltipPrimitive.Content
-          sideOffset={8}
-          side={side}
           className="animate-slide-up-fade z-[99] items-center overflow-hidden rounded-md border border-gray-200 bg-white shadow-md"
+          side={side}
+          sideOffset={8}
         >
           {typeof content === "string" ? (
             <span className="block max-w-xs px-4 py-2 text-center text-sm text-gray-700">
@@ -69,12 +73,11 @@ export function TooltipContent({
   href?: string;
   target?: string;
   onClick?: () => void;
-}) {
+}): JSX.Element {
   return (
     <div className="flex max-w-xs flex-col items-center space-y-3 p-4 text-center">
       <p className="text-sm text-gray-700">{title}</p>
-      {cta &&
-        (href ? (
+      {cta ? href ? (
           <Link
             href={href}
             {...(target ? { target } : {})}
@@ -84,13 +87,13 @@ export function TooltipContent({
           </Link>
         ) : onClick ? (
           <button
-            type="button"
             className="mt-4 w-full rounded-md border border-black bg-black px-3 py-1.5 text-center text-sm text-white transition-all hover:bg-white hover:text-black"
             onClick={onClick}
+            type="button"
           >
             {cta}
           </button>
-        ) : null)}
+        ) : null : null}
     </div>
   );
 }
@@ -103,14 +106,14 @@ export function SimpleTooltipContent({
   title: string;
   cta: string;
   href: string;
-}) {
+}): JSX.Element {
   return (
     <div className="max-w-xs px-4 py-2 text-center text-sm text-gray-700">
       {title}{" "}
       <a
-        href={href}
-        target="_blank"
         className="inline-flex text-gray-500 underline underline-offset-4 hover:text-gray-800"
+        href={href}
+        rel="noopener" target="_blank"
       >
         {cta}
       </a>
@@ -118,7 +121,11 @@ export function SimpleTooltipContent({
   );
 }
 
-export function InfoTooltip({ content }: { content: ReactNode | string }) {
+export function InfoTooltip({
+  content,
+}: {
+  content: ReactNode | string;
+}): JSX.Element {
   return (
     <Tooltip content={content}>
       <HelpCircle className="h-4 w-4 text-gray-500" />
@@ -147,11 +154,9 @@ export function NumberTooltip({
           <p className="text-sm font-semibold text-gray-700">
             {nFormatter(value || 0, { full: true })} {unit}
           </p>
-          {lastClicked && (
-            <p className="mt-1 text-xs text-gray-500" suppressHydrationWarning>
+          {lastClicked ? <p className="mt-1 text-xs text-gray-500" suppressHydrationWarning>
               Last clicked {timeAgo(lastClicked, { withAgo: true })}
-            </p>
-          )}
+            </p> : null}
         </div>
       }
     >
